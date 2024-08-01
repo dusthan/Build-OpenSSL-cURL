@@ -277,11 +277,11 @@ if [ "$catalyst" != "" ]; then
 		-library $ARCHIVE/lib/iOS/libcurl.a \
         -headers curl/include \
 		-library $ARCHIVE/lib/iOS-simulator/libcurl.a \
-   ##     -headers curl/include \
+        -headers curl/include \
 ##		-library $ARCHIVE/lib/tvOS/libcurl.a \
 ##        -headers curl/include \
 ##		-library $ARCHIVE/lib/tvOS-simulator/libcurl.a \
-        -headers curl/include \
+##        -headers curl/include \
 		-library $ARCHIVE/lib/Catalyst/libcurl.a \
         -headers curl/include \
         -library $ARCHIVE/lib/MacOS/libcurl.a \
@@ -291,11 +291,11 @@ if [ "$catalyst" != "" ]; then
 		-library $ARCHIVE/lib/iOS/libcrypto.a \
         -headers openssl/iOS/include \
 		-library $ARCHIVE/lib/iOS-simulator/libcrypto.a \
-##        -headers openssl/iOS-simulator/include \
+        -headers openssl/iOS-simulator/include \
 ##		-library $ARCHIVE/lib/tvOS/libcrypto.a \
 ##        -headers openssl/tvOS/include \
 ##		-library $ARCHIVE/lib/tvOS-simulator/libcrypto.a \
-        -headers openssl/tvOS-simulator/include \
+##        -headers openssl/tvOS-simulator/include \
 		-library $ARCHIVE/lib/Catalyst/libcrypto.a \
         -headers openssl/Mac/include \
         -library $ARCHIVE/lib/MacOS/libcrypto.a \
@@ -317,9 +317,9 @@ else
 		-library $ARCHIVE/lib/iOS-simulator/libcurl.a \
         -headers curl/include \
 ##		-library $ARCHIVE/lib/tvOS/libcurl.a \
-        -headers curl/include \
+##        -headers curl/include \
 ##		-library $ARCHIVE/lib/tvOS-simulator/libcurl.a \
-        -headers curl/include \
+##        -headers curl/include \
         -library $ARCHIVE/lib/MacOS/libcurl.a \
         -headers curl/include \
 		-output $ARCHIVE/xcframework/libcurl.xcframework
