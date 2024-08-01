@@ -522,8 +522,8 @@ if [ $catalyst == "1" ]; then
 		-create -output Catalyst/lib/libssl.a
 fi
 
-TVOS=true
-if [ "$execute_code" = true ]; then
+TVOS=false
+if [ "$TVOS" = true ]; then
 	## tvOS
 	echo -e "${bold}Building tvOS libraries${dim}"
 	buildTVOS "arm64"
