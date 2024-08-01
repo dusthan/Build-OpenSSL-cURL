@@ -639,7 +639,7 @@ lipo \
 # 		-create -output lib/libcurl_iOS_nobitcode.a
 # fi
 
-TVOS=true
+TVOS=false
 if [ "$TVOS" = true ]; then
 
 	echo -e "${bold}Building tvOS libraries${dim}"
