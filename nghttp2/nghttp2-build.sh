@@ -591,27 +591,28 @@ lipo \
 	"${NGHTTP2}/iOS-simulator/x86_64/lib/libnghttp2.a" \
 	"${NGHTTP2}/iOS-simulator/arm64/lib/libnghttp2.a" \
 	-create -output "${NGHTTP2}/lib/libnghttp2_iOS-simulator.a"
-
-echo -e "${bold}Building tvOS libraries${dim}"
-buildTVOS "arm64"
-
-lipo \
-        "${NGHTTP2}/tvOS/arm64/lib/libnghttp2.a" \
-        -create -output "${NGHTTP2}/lib/libnghttp2_tvOS.a"
-
-buildTVOSsim "x86_64"
-buildTVOSsim "arm64"
-
-lipo \
-        "${NGHTTP2}/tvOS/arm64/lib/libnghttp2.a" \
-        "${NGHTTP2}/tvOS-simulator/x86_64/lib/libnghttp2.a" \
-        -create -output "${NGHTTP2}/lib/libnghttp2_tvOS-fat.a"
-
-lipo \
-	"${NGHTTP2}/tvOS-simulator/x86_64/lib/libnghttp2.a" \
-	"${NGHTTP2}/tvOS-simulator/arm64/lib/libnghttp2.a" \
-	-create -output "${NGHTTP2}/lib/libnghttp2_tvOS-simulator.a"
-
+TVOS=false
+if [ "$TVOS" = true ]; then
+	echo -e "${bold}Building tvOS libraries${dim}"
+	buildTVOS "arm64"
+	
+	lipo \
+	        "${NGHTTP2}/tvOS/arm64/lib/libnghttp2.a" \
+	        -create -output "${NGHTTP2}/lib/libnghttp2_tvOS.a"
+	
+	buildTVOSsim "x86_64"
+	buildTVOSsim "arm64"
+	
+	lipo \
+	        "${NGHTTP2}/tvOS/arm64/lib/libnghttp2.a" \
+	        "${NGHTTP2}/tvOS-simulator/x86_64/lib/libnghttp2.a" \
+	        -create -output "${NGHTTP2}/lib/libnghttp2_tvOS-fat.a"
+	
+	lipo \
+		"${NGHTTP2}/tvOS-simulator/x86_64/lib/libnghttp2.a" \
+		"${NGHTTP2}/tvOS-simulator/arm64/lib/libnghttp2.a" \
+		-create -output "${NGHTTP2}/lib/libnghttp2_tvOS-simulator.a"
+fi
 echo -e "${bold}Cleaning up${dim}"
 rm -rf /tmp/${NGHTTP2_VERSION}-*
 rm -rf ${NGHTTP2_VERSION}
