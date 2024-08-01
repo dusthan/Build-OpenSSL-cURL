@@ -44,7 +44,7 @@ jobs:
       - name: Build Test iOS App
         run: xcodebuild build -project "example/iOS Test App/iOS Test App.xcodeproj" -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -arch x86_64
       - name: Archive build artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: build-artifacts
           path: /Users/runner/work/Build-OpenSSL-cURL/Build-OpenSSL-cURL/archive
@@ -69,14 +69,14 @@ jobs:
 
       # Download build artifacts
       - name: Download build artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: build-artifacts
           path: /Users/runner/work/Build-OpenSSL-cURL/Build-OpenSSL-cURL/archive
 
       # Upload build artifacts to release
       - name: Upload Release Asset
-        uses: actions/upload-release-asset@v3
+        uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
