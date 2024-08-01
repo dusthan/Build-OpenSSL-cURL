@@ -639,26 +639,29 @@ lipo \
 # 		-create -output lib/libcurl_iOS_nobitcode.a
 # fi
 
-echo -e "${bold}Building tvOS libraries${dim}"
-buildTVOS "arm64" "${BITCODE}"
+TVOS=true
+if [ "$TVOS" = true ]; then
 
-lipo \
-	"/tmp/${CURL_VERSION}-tvOS-arm64/lib/libcurl.a" \
-	-create -output lib/libcurl_tvOS.a
-
-buildTVOSsim "x86_64" "${BITCODE}"
-buildTVOSsim "arm64" "${BITCODE}"
-
-lipo \
-	"/tmp/${CURL_VERSION}-tvOS-arm64/lib/libcurl.a" \
-	"/tmp/${CURL_VERSION}-tvOS-simulator-x86_64/lib/libcurl.a" \
-	-create -output lib/libcurl_tvOS-fat.a
-
-lipo \
-	"/tmp/${CURL_VERSION}-tvOS-simulator-x86_64/lib/libcurl.a" \
-	"/tmp/${CURL_VERSION}-tvOS-simulator-arm64/lib/libcurl.a" \
-	-create -output lib/libcurl_tvOS-simulator.a
-
+	echo -e "${bold}Building tvOS libraries${dim}"
+	buildTVOS "arm64" "${BITCODE}"
+	
+	lipo \
+		"/tmp/${CURL_VERSION}-tvOS-arm64/lib/libcurl.a" \
+		-create -output lib/libcurl_tvOS.a
+	
+	buildTVOSsim "x86_64" "${BITCODE}"
+	buildTVOSsim "arm64" "${BITCODE}"
+	
+	lipo \
+		"/tmp/${CURL_VERSION}-tvOS-arm64/lib/libcurl.a" \
+		"/tmp/${CURL_VERSION}-tvOS-simulator-x86_64/lib/libcurl.a" \
+		-create -output lib/libcurl_tvOS-fat.a
+	
+	lipo \
+		"/tmp/${CURL_VERSION}-tvOS-simulator-x86_64/lib/libcurl.a" \
+		"/tmp/${CURL_VERSION}-tvOS-simulator-arm64/lib/libcurl.a" \
+		-create -output lib/libcurl_tvOS-simulator.a
+fi
 echo -e "${bold}Cleaning up${dim}"
 rm -rf /tmp/${CURL_VERSION}-*
 rm -rf ${CURL_VERSION}
