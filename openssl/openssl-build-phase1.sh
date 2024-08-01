@@ -522,7 +522,7 @@ if [ $catalyst == "1" ]; then
 		-create -output Catalyst/lib/libssl.a
 fi
 
-TVOS=false
+TVOS=true
 if [ "$TVOS" = true ]; then
 	## tvOS
 	echo -e "${bold}Building tvOS libraries${dim}"
