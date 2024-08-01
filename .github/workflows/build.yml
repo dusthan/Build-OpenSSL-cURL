@@ -6,6 +6,8 @@ name: build
 on:
   # Triggers the workflow on push or pull request except for documentation changes
   push:
+    tags:
+      - '*'
     paths-ignore:
       - '**.md'
   pull_request:
