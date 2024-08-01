@@ -591,7 +591,7 @@ lipo \
 	"${NGHTTP2}/iOS-simulator/x86_64/lib/libnghttp2.a" \
 	"${NGHTTP2}/iOS-simulator/arm64/lib/libnghttp2.a" \
 	-create -output "${NGHTTP2}/lib/libnghttp2_iOS-simulator.a"
-TVOS=false
+TVOS=true
 if [ "$TVOS" = true ]; then
 	echo -e "${bold}Building tvOS libraries${dim}"
 	buildTVOS "arm64"
