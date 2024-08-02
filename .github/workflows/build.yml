@@ -48,10 +48,22 @@ jobs:
         run: |
           tar -czvf archive.tar.gz /Users/runner/work/Build-OpenSSL-cURL/Build-OpenSSL-cURL/archive
 
-      - name: Create GitHub Release
+      - uses: actions/checkout@v3     
+      # Create GitHub Release
+      - name: Create Release
         id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.event.inputs.tag }}
+          release_name: Release ${{ github.event.inputs.tag }}
+          draft: false
+          prerelease: false
+
+      - name: Create GitHub Release
+        id: action_release
         uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/')
         with:
           files: archive.tar.gz
         env:
