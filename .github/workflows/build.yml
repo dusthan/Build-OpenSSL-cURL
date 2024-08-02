@@ -43,44 +43,16 @@ jobs:
       # Build test iOS App - Build
       - name: Build Test iOS App
         run: xcodebuild build -project "example/iOS Test App/iOS Test App.xcodeproj" -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -arch x86_64
-      - name: Archive build artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: build-artifacts
-          path: /Users/runner/work/Build-OpenSSL-cURL/Build-OpenSSL-cURL/archive
-# This workflow contains a job to create a release and attach artifacts
-  release:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-      # Create GitHub Release
-      - name: Create Release
+      
+      - name: Package compiled files
+        run: |
+          tar -czvf archive.tar.gz /Users/runner/work/Build-OpenSSL-cURL/Build-OpenSSL-cURL/archive
+
+      - name: Create GitHub Release
         id: create_release
-        uses: actions/create-release@v1
+        uses: softprops/action-gh-release@v2
+        with:
+          files: archive.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.event.inputs.tag }}
-          release_name: Release ${{ github.event.inputs.tag }}
-          draft: false
-          prerelease: false
 
-      # Download build artifacts
-      - name: Download build artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: build-artifacts
-          path: ./artifacts
-
-      # Upload build artifacts to release
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./artifacts
-          asset_name: build-artifacts.zip
-          asset_content_type: application/zip
